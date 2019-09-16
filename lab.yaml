@@ -1,0 +1,10 @@
+name: python_lab
+dependencies:
+  - numpy
+  - panda
+  - matplotlib
+  - nb_conda
+  - scipy
+  - seaborn
+  - math
+
