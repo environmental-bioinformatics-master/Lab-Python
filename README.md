@@ -3,10 +3,14 @@
 
 ## Goals:
 - Introduction to python and programming in general terms
-- Survey of terms and data types
+- Introduction to the python interpreter
+- Introduction to conda
+- Setting up jupter notebook on the HPC
+- Survey of terms and data types in python
 - Operators in python
 - Lists, dictionaries, sets
-- libraries and modules 
+- Libraries and modules 
+
 ## What is programming? 
 Programming is the processes of writing a set of instructions (**program**) to tell a computer to carry out a process. The writing of the program can occur in one of any number of different languages-- however many of the key concepts are consistent. 
 
@@ -50,6 +54,9 @@ Each has its merits and draw backs, but the nice thing is that once you master o
 - Good scientific notebook style interactive interface (Jupyter)
 
 ## Running Python
+First things first, let's all *clone* a copy of the Repo we will be using for this part of the class. Go here: https://github.com/2019-MIT-Environmental-Bioinformatics/Lab-Python. 
+
+>
 ### Running the Python interpreter
 Python code can be run in many ways. You can run code directly within the python interpreter. To directly open the python interpreter you can type `python`. 
 
@@ -119,7 +126,7 @@ If you were working on your local computer you could simply type `jupyter notebo
 
 ```bash
 jupyter notebook password
-````
+```
 Now, let's open jupyter notebook! 
 
 ```bash
@@ -141,6 +148,8 @@ Now, we will use the command:
 ssh -N -f -L localhost:8888:localhost:8888 USERNAME@poseidon-[l1 or l2].whoi.edu
 ```
 This should prompt you for your password. You can enter it and then hit enter. Once you do that, you are ready to open your browser of choice and type `localhost:8888` into the prompt. Now, enter your jupter notebook password. Hit enter-- and you should be ready to go! 
+
+Let's take a quick tour of Jupyter! 
 
 ## Terms and data types
 
@@ -164,15 +173,75 @@ This should prompt you for your password. You can enter it and then hit enter. O
 | Boolean    	| Binary True/False                	|
 | String   	| A collection of text characters (numbers, letters, etc.); e.g. "Homo sapiens", "33" 	|
 
-Any data type can be assigned to a variable with the `=`. For example: 
+### Mathematical Operators
+| Symbol | Example                                                 	|
+|------------	|------------------------------------------------------------	|
+| `+`	|Addition                   	|
+| `-`         	| Subtraction|
+| `*`      	| Multiplication             	|
+| `/`     	| Division|
+| `**`     	| Power/exponent|
+| `%`     	| Modulo|
+| `//`     	| Truncated division (without remainder)|
+
+### Comparative and Logical Operators
+| Symbol | Example                                                 	|
+|------------	|------------------------------------------------------------	|
+| `==`	|Addition                   	|
+| `!=`         	| Subtraction|
+| `>`, `>=`      	| Multiplication             	|
+| `<`, `<=`     	| Division|
+| `and` `&`, ``     	| Power/exponent|
+| ``     	| Modulo|
+| `and`, `&`    | And|
+| `or`, `|`	| Or|
+| `not`, `!` 	| NOT|
+
+
+## Variables as containers of many things
+###Variables at their most basic
+Unlike some other programming languages, you do not need to specify what a variable is going to be. It can honestly be anything and will take on anything. Any data type can be assigned to a variable with the `=`. For example: 
 
 ```python
+my_name = 'Harriet'
 blue = 'red'
 apple = 5
 ```
+You can `print` the value of a variable with the command `print()`:
 
-### Variables as containers of many things
-#### Arrays and Lists
+```python
+print(my_name)
+```
+
+Variables must be created before they are used. If for example I wanted to print a variable called `elephant` I would need to initiate it first. 
+
+> What happens if you try to print a variable that hasn't been set up yet? 
+
+What is more-- variables persist between calls (until they are actively changed by assigning a new value). So, when you set a variable in one cell it is going to be the same further down. 
+
+Variables can also be used in any calculation you want. For example, 
+
+```python
+favorite_number = 24
+favorite_number_squared = favorite_number ** 2
+```
+Also, variables that contain strings can be indexed and sliced to grab particular parts. Let's make a long string:
+
+```python
+bronte = 'Whatever our souls are made of, his and mine are the same.'
+bronte[2]
+bronte[3:20] 
+```
+What is more, we can search in strings using our good, old regular expressions. To do this we will import a **library** or **package** into python. Python has a lot of utility on its own-- however not everything is automatically available. Most of the coolest functionality are compartmentalized into packages. 
+
+The first one we will try out is called `re`. In a cell type: `import re`. You will now be able to use all the functionality within that function. You can call functions (tools) within this package using the dot. For example we can search for the regular expression `'\s[A-z]+a[rmd]e'` in `bronte`. 
+```python
+re.findall('\s[A-z]+a[rmd]e', bronte)
+```
+Try typing `re.` and hitting tab-- you will be able to see the different tools in this package. 
+ 
+### Variables with Arrays and Lists
+#### Lists
 An `array` is a collection of data that is called by a single variable name. 
 
 A `list` is a 1D array that contains a series of values. List variables are declared by using brackets `[ ] ` following the variable name. Values do not need to be of the same type (i.e. you can have a mixture of strings, integers, floats, and booleans). You can also have `list` contained within a `list`.
@@ -191,19 +260,36 @@ So, if I wanted to return the 2nd element of `Favorites`:
 Favorites[1] 
  >> 'Q'
 ```
+#### Arrays
+Generally, I do not recommend working with arrays for anything other than numeric data. One of the options for working with numeric data is the package `numpy` (Numerical Python... there is debate about [pronunciation](https://www.reddit.com/r/Python/comments/2709pq/how_do_you_say_numpy/)). Let's import `numpy`. In a cell type:
 
-## Useful customizations for after class
-There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following bash function to your .bash_profile to help speed things along. 
+```python
+import numpy as np
+```
+Unlike `re` numpy is kind of long. For longer named packages it is common practice to import them to a shorthand name with the word `as`. Here we are importing `numpy` as a variable named `np`. If you then type `np` it will automatically pull up numpy. 
+
+Let's create a matrix! 
+
+```python
+x_lists = [[1,2],[3,4]]
+arr = np.array(x)
+```
+I am not going to go into the matrix math application of python here-- but if you are interested I recommend checking out `numpy` and `xarray`. More [here](https://www.python-course.eu/matrix_arithmetic.php). 
+
+You can also read in data from a file like a csv. For example: 
+
+```python
+data = np.loadtxt('data/random.csv',delimiter=',')
+```
+
+## Useful customization for after class
+There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following bash function to your `.bash_profile` to help speed things along. 
 
 ```bash 
  jpt(){
    # Fires-up a Jupyter notebook by supplying a specific port
    jupyter notebook --no-browser --port=$1
 }
-
 ```
 
 As you can see the command `jpt` takes one user input $1 which specifies the port number that you want to open your `jupyter notebook` in. 
-
-
-
