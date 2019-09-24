@@ -1,5 +1,4 @@
 # Introduction to Python
-@(Teaching)
 
 ## Goals:
 - Introduction to python and programming in general terms
@@ -10,6 +9,7 @@
 - Operators in python
 - Lists, dictionaries, sets
 - Libraries and modules 
+- For loops! 
 
 ## What is programming? 
 Programming is the processes of writing a set of instructions (**program**) to tell a computer to carry out a process. The writing of the program can occur in one of any number of different languages-- however many of the key concepts are consistent. 
@@ -101,6 +101,7 @@ The first thing we are going to do is load anaconda on to our compute environmen
 ```bash
 module load anaconda
 ```
+
 > The `module load` is a common aspect of HPC environments. Try typing `module avail`. This prints all the available programs that you can load on the HPC. Many of the programming languages we already mentioned are listed. Type `module list` to see what programs are loaded in your environment. 
 
 Now that we have loaded anaconda the first thing we are going to do is create a new `conda environment`. A `conda environment` is a type of virtual environment. Virtual environments helps to keep dependencies required by different projects separate by creating isolated spaces for them that contain per-project dependencies for them. Basically, you can think of it as having a special room (environment) within your house (computer) where you do one specific activity. For example, in the kitchen you cook, in the bed room you sleep. Only with virtual environments you can be even more specific. It is good practice to associate environments with computational projects as you are able to specify things like program versions within them. Hypothetically, with conda you should be able to hand a friend an `environment.yaml` file and all your code and data and they should be able to run everything. It is pretty transformative, really. 
@@ -112,6 +113,12 @@ For now, let's make our first conda environment. I have provided a  yaml file th
 ```bash
 conda env create -f lab.yaml
 ```
+Note: If this is your first time using conda envrionments on the HPC you might need to run the following command. Note: you only need to run *once* and then it should be set. 
+
+```bash
+conda init bash
+```
+
 This is going to create a conda environment called `python-lab`. Whenever we activate `python-lab` it will take us into that special room on our computer where all these programs are installed with specific versions. To enter it type:
 
 ```bash
@@ -122,11 +129,13 @@ conda activate python_lab
 ### Starting Jupyter Notebook
 Now, we are reading to start a `jupyter notebook`! Jupyter notebooks run within a web browser and act as a GUI interface of sorts to run python code. Yet, they are saved as convenient chunks of code (ending in `.ipynb`) that can be opened again,  re-run, shared, and modified. 
 
-If you were working on your local computer you could simply type `jupyter notebook` and a notebook would open up. However, as we are trying to run this on a remote computer we will need to specify a bit more. First, we are going to set a password for our `jupyter notebooks`. Jupyter notebooks basically create a port into whatever computer you are using (especially if it is a remote machine). You only have to do this once (or whenever you want to change you password). 
+If you were working on your local computer you could simply type `jupyter notebook` and a notebook would open up. However, as we are trying to run this on a remote computer we will need to specify a bit more. First, we are going to set a password for our `jupyter notebooks`. Jupyter notebooks basically create a port into whatever computer you are using (especially if it is a remote machine). You only have to do this once (or whenever you want to change you password). Note: you only need to run these commands *once* and then it should be set. 
 
 ```bash
+jupyter notebook --generate-config
 jupyter notebook password
 ```
+
 Now, let's open jupyter notebook! 
 
 ```bash
@@ -142,14 +151,24 @@ To access the browser we are going to use `ssh`.  You will need to know the foll
 4. The `port` that we opened jupyter within
 5. The name of the node you want to open the notebook on `poseidon-l1` or `poseidon-l2`. 
 
-Now, we will use the command: 
+Now, we will use the command. Type this into a new terminal window that is running on your local computer: 
 
 ```bash
 ssh -N -f -L localhost:8888:localhost:8888 USERNAME@poseidon-[l1 or l2].whoi.edu
 ```
 This should prompt you for your password. You can enter it and then hit enter. Once you do that, you are ready to open your browser of choice and type `localhost:8888` into the prompt. Now, enter your jupter notebook password. Hit enter-- and you should be ready to go! 
 
-Let's take a quick tour of Jupyter! 
+## Let's take a quick tour of Jupyter! 
+
+Jupyter is an interactive way to visualize code, the output of code (e.g. plots), and keep notes.  The first screen you see is the home screen or dash board. This should show you a navigable file structure much like what you might find on your computer. 
+
+Jupyter (a mash up of Julia-Python-R) is a pen-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. The power of Jupyter is that it can be set up to run any number of code interpreters. This can be done by selecting a different "kernel". These notebooks can be shared, downloaded, posted to websites, turned into pdfs... the options are basically endless. They can even be viewed on Github!  
+
+Let's start a new notebook. Go over to `New`  drop down menu and select `Python [conda env:conda-python_lab]` or the like. This is going to open up a new Jupyter Notebook within our special `conda` environment for us to work within. 
+
+> **Quick tip:** if you are lost or confused just type H (while not in a cell). This brings up a handy cheat sheet.  
+
+You should now see a new Jupyter Notebook window. 
 
 ## Terms and data types
 
@@ -225,6 +244,11 @@ Variables can also be used in any calculation you want. For example,
 favorite_number = 24
 favorite_number_squared = favorite_number ** 2
 ```
+You can also take information and pass it into another text string that is printed:
+
+```python
+print("My favorite number is" , favorite number, " that number squred is: ", favorite_number_squared)
+```
 Also, variables that contain strings can be indexed and sliced to grab particular parts. Let's make a long string:
 
 ```python
@@ -232,19 +256,21 @@ bronte = 'Whatever our souls are made of, his and mine are the same.'
 bronte[2]
 bronte[3:20] 
 ```
+###Libraries
 What is more, we can search in strings using our good, old regular expressions. To do this we will import a **library** or **package** into python. Python has a lot of utility on its own-- however not everything is automatically available. Most of the coolest functionality are compartmentalized into packages. 
 
 The first one we will try out is called `re`. In a cell type: `import re`. You will now be able to use all the functionality within that function. You can call functions (tools) within this package using the dot. For example we can search for the regular expression `'\s[A-z]+a[rmd]e'` in `bronte`. 
+
 ```python
 re.findall('\s[A-z]+a[rmd]e', bronte)
 ```
 Try typing `re.` and hitting tab-- you will be able to see the different tools in this package. 
  
-### Variables with Arrays and Lists
+### Variables with Arrays, Lists, Dictionaries, and Sets
 #### Lists
 An `array` is a collection of data that is called by a single variable name. 
 
-A `list` is a 1D array that contains a series of values. List variables are declared by using brackets `[ ] ` following the variable name. Values do not need to be of the same type (i.e. you can have a mixture of strings, integers, floats, and booleans). You can also have `list` contained within a `list`.
+A `list` is a 1D array that contains a series of values. List variables are declared by using brackets `[ ] ` following the variable name. Values do not need to be of the same type (i.e. you can have a mixture of strings, integers, floats, and booleans). You can also have `list` contained within a `list`. Lists are always ordered (once you set the order)
 
 Let's try making a `list` that contains your favorite number, letter, and fruit:
 
@@ -260,6 +286,21 @@ So, if I wanted to return the 2nd element of `Favorites`:
 Favorites[1] 
  >> 'Q'
 ```
+Some functions can directly modify lists for example:
+
+```python
+primes = [2,3,5]
+```
+We can use `list_variable.append` to add items to the end of a list. `.append()` is a *method* of lists. Methods are liked functions but are tied to specific function types. For example, you cannot apply the method `.append()` to anything but a list will not work. 
+
+```python
+prime.append(7)
+```
+
+> What happened? Did anything print? What happens if you try prime.append(11)? What if you try to append two numbers? 
+
+> What happens if you try to append to our previous string `my_name`?
+ 
 #### Arrays
 Generally, I do not recommend working with arrays for anything other than numeric data. One of the options for working with numeric data is the package `numpy` (Numerical Python... there is debate about [pronunciation](https://www.reddit.com/r/Python/comments/2709pq/how_do_you_say_numpy/)). Let's import `numpy`. In a cell type:
 
@@ -281,9 +322,179 @@ You can also read in data from a file like a csv. For example:
 ```python
 data = np.loadtxt('data/random.csv',delimiter=',')
 ```
+In addition to reading reading in data you can also perform simple (and more complex) mathematical operations. For example, we can use the function `sum()` within numpy to calculate the sum of the numpy array: 
+
+```python
+np.sum(data)
+```
+You can also use the `help()` much like man to investigate the use of functions. For example:
+```python
+help(np.sum)
+```
+Of course, you can also google the function and find out what it does. 
+> Can you figure out how to calculate the mean? Standard deviation? Median? 
+
+#### Sets
+ `Sets` in python look a bit like lists at first, but they serve a different purpose. `sets` are a collection of unordered collections of unique elements-- this means that more than one of the same item cannot occur and that `sets` cannot be indexed. So, why would you want to use them? Well, they end up being very useful if you ever want to identify if something is present in a group or identify what the unique members of a group are. Sets are made using the function `set()`. 
+
+For example, 
+
+```python
+colors = ['blue', 'blue', 'red', green']
+uniquecolors = set(colors)
+```
+
+More to our interests:
+
+```python
+sequence = "ATCTTAAGTT--AAA"
+set(sequence)
+```
+
+> Sets have some really powerful `methods` associated with them. For example,  you can rapidly run math-like set comparison with `.union()`, `.intersection()`, `.difference()`.  Try running these commands with the sets defined below. 
+
+```python
+	being_in_A = set(['apple', 'ashen', 'architecture'])
+	end_in_E = set(['stare', 'bane', 'apple', 'frazzle'])
+```
+
+#### Dictionaries
+A dictionary (sometimes called a hash or map in other languages) is a different type of container. It is much like it sounds-- it is a dictionary. As with a paper dictionary, where you look up a `word` and get a `definition` (or multiple `definitions`), a dictionary will take a `key` and look up any associated `value`.  Values can be anything that you can store to a variable: `strings`, `lists`, `sets`, other `dictionaries`. Dictionaries can be as simple as associating one `string` with another `string` or can be much more complicated. 
+
+You can initiate a dictionary with `{}`:
+
+```python
+fact_dict = {}
+```
+Then, similar to how we indexed our list and arrays, we can use the `[]`to call or add values to our dictionary. 
+
+```python
+fact_dict["name"] = "Harriet"
+fact_dict["age"] = 32
+fact_dict["favorite_foods"] = ['avocado', 'sourdough', 'raspberries']
+```
+
+You can then `print()` your dictionary: 
+
+```python
+print(dictionary)
+```
+And we can recall values from our dictionary:
+
+```python
+print("My name is ", fact_dict["name"], "and I like", ', '.join(fact_dict["favorite_foods"]))
+```
+
+> **Exercise** : Write a dictionary that matches bases that typically pair in DNA: (i.e. A and T; C and G). This dictionary should allow us to query with one base and then get back its pair. Call this dictionary `comp_dict`.  
+
+## Flow Control: Loops and beyond!
+
+### `for` loops over strings and lists
+As mentioned before-- `for loops` are a consistent programming element across languages. We learned the style of for loops in `bash` so now let's learn about them in `python`. 
+
+In `python`, `for` loops take the general form: 
+
+```python
+primes = [2,3,5]
+for num in primes:
+	print(num)
+```
+> What are the differences you can see? What would let you know something isn't in the loop? 
+
+Unlike bash, `python` formatting relies a lot on the presence of white space to define different components of a program element. In python the for statement is always followed by a ':'. Then, anything following this `:` must be tabbed over and anything occurring within this textual block will be considered to be part of the thing to be looped over. 
+
+For loops can loop over any of the sets we defined above : lists, strings, etc. 
+
+Let's try writing a for loop that will loop over a string. We just wrote a dictionary above that will generate the complement of a single base pair. Let's define some sort of sequence that we want to find the complement of: 
+
+```python
+sequence = "ACTGCTAGG"
+```
+
+We  can't pass a whole sequence directly to the dictionary. It won't work. 
+
+```python
+comp_dict[sequence]
+###DOESN'T WORK! 
+```
+> **EXERCISE TOGETHER:** Instead, we can write a loop that loops over each element of the string and then queries that element in our dictionary. Let's write a for loop that will loop over a string and output the complement of that string. 
+
+### Looping over files
+Often, something we want to do is loop over a list of files and do the same thing for each of the files. What if we wanted to loop over all the files that end in `.csv` like we did in bash. 
+
+In `bash` we could do:
+
+```bash
+#bash
+for file in *csv
+do 
+	...
+```
+ 
+ In python we can use the library `glob`. In Unix, the term “globbing” means matching a set of files with a pattern-- and that is what this function does. This library allows you to search within your file structure using wildcards or regular expressions like those we have already learned. First, we have to import it:
+ 
+``` python
+import glob
+```
+We can then check all the files that in in `*csv` within a particular directory like this: 
+```python
+print('The csv files are:', glob.glob('newdata/*.csv'))
+```
+Now, let's pass this command to a for loop and see what we can do! Let's write a for loop that will read in all the `csv` files to arrays with python: 
+
+```python
+for f in glob.glob('newdata/*csv'):
+    f_array = np.loadtxt(f, delimiter=',')
+```
+What is the value of `array`? What is happening? 
+
+> Add a command to this function that will calculate and print the mean of this array to the screen with a message. 
+
+### Decisions with `if` and `else`
+Often times in programming you have the computer make decisions for you. You want to do one thing to one set of files and something different with the other set. The `if` statement is the most commonly used technique for such decision making. You can think of it is as a fork in the road: based on a binary `True`/`False` choice at this fork you will do one thing or another. If statements also often include the logi
+![Alt text](1568915009202.png)
+** Figure 7.3 from Practical Computing for Biologists, Haddock and Dunn.**
+If statements can be very simple. They are encoded with the the keyword `if` and a `:` as with `for` loops. `else`, when added gives the option for what to do if the first statement is not true. For example, to test if a number is even you might use the following:
+```python
+A = 51
+if (A %2)==0:
+	print('Even')
+else:
+	print('Odd')
+```
+
+Now let's embed this into a for loop. 
+
+Let's modify the loop that we wrote above to work on reading in files from a directory with `glob`:
+
+```python
+for f in glob.glob('newdata/*csv'):
+    f_array = np.loadtxt(f, delimiter=',')
+
+```
+Let's say that we want to save all the arrays that have a mean greater than 0.5 to a dictionary called 'big' and those less to a dictionary called 'small'. How can we do that? 
+
+### A different type of loop: `while`
+Sometimes you enter a loop with an idea of all the things you want to do-- i.e. you have a list of things you want to analyze or change. 
+
+Sometimes, however, you don't have an exact list of things you want to accomplish but rather have an idea that you want to do something until a particular condition is met. This is often done with some sort of counter or monitor. A note: it is possible to end up in an endless while loop if you don't have a condition that can ever be met! 
+
+![Alt text](1568907998237.png)
+** Figure 7.4 from Practical Computing for Biologists, Haddock and Dunn.**
+
+While loops are useful if you need to improve an approximation, or want to wait until some condition is reached, or if you are reading a file and want to read it while the file has lines. 
+
+While loops generally take a conditional statement (much like `if`/`else` ) and take the general form:
+
+```python
+i = 1
+while i < 100:
+	print(i)
+	i+=12
+```
 
 ## Useful customization for after class
-There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following bash function to your `.bash_profile` to help speed things along. 
+There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following function to your `.bash_profile` on the HPC. 
 
 ```bash 
  jpt(){
@@ -292,4 +503,7 @@ There is a lot of typing involved in getting jupyter running on the HPC. I recom
 }
 ```
 
-As you can see the command `jpt` takes one user input $1 which specifies the port number that you want to open your `jupyter notebook` in. 
+As you can see the command `jpt` takes one user input $1 which specifies the port number that you want to open your `jupyter notebook` in.  So, to open a port you would type `jpt 8888'. 
+
+Now, on your *local* `.bash_profile`
+
