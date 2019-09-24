@@ -583,26 +583,3 @@ Now, on your *local* `.bash_profile`
 
 
 
-
-### Solutions: 
-
-```python
-filename = 'data/fasta/unicorn.fa'
-mysequences={}
-with open(filename, 'r') as f: 
-    for i, line in enumerate(f):
-        line = line.strip()
-        if line.startswith('>'):
-            seqdict = {}
-            name = line.split(' ')[0].replace('>','')
-            header = line.replace('>','')
-            sequence = ''
-            seqdict['name']=name 
-            seqdict['header']=header
-        else:
-            sequence+=line
-            seqdict['sequence']=sequence
-        mysequences[name]=seqdict
-f.close()
-```
-
