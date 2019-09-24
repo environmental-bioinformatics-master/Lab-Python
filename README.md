@@ -1,4 +1,5 @@
 # Introduction to Python
+@(Teaching)
 
 ## Goals:
 - Introduction to python and programming in general terms
@@ -85,7 +86,7 @@ Now, let's just take a quick look at the contents of this program. Note that the
 
 > As an aside, python recently went through a major transition changing from `python 2.7` to `python 3`. While you may run into some program written in `2.7` you should try to do all of your analyses in `3`. To figure out which version you are running type `python --version` or `which python`. 
 
-###Jupyter notebooks
+### Jupyter notebooks
 For the rest of this class we will be running all of our code in `jupyter notebooks`.  The main reason that I like working within in `jupyter notebooks` is that they are *interactive* and *easily readable*. Notably, code and output graphics or answers are tightly linked together rather like a laboratory notebook. 
 
 First, let's open up a new `tmux` session. You can name `tmux` sessions with the command:
@@ -206,19 +207,17 @@ You should now see a new Jupyter Notebook window.
 ### Comparative and Logical Operators
 | Symbol | Example                                                 	|
 |------------	|------------------------------------------------------------	|
-| `==`	|Addition                   	|
-| `!=`         	| Subtraction|
-| `>`, `>=`      	| Multiplication             	|
-| `<`, `<=`     	| Division|
-| `and` `&`, ``     	| Power/exponent|
-| ``     	| Modulo|
+| `==`	|Equals                   	|
+| `!=`         	| Does not Equal|
+| `>`, `>=`      	| Greater than             	|
+| `<`, `<=`     	| Less than|
 | `and`, `&`    | And|
 | `or`, `|`	| Or|
-| `not`, `!` 	| NOT|
+| `not`, `!` 	| Not|
 
 
 ## Variables as containers of many things
-###Variables at their most basic
+###  Variables at their most basic
 Unlike some other programming languages, you do not need to specify what a variable is going to be. It can honestly be anything and will take on anything. Any data type can be assigned to a variable with the `=`. For example: 
 
 ```python
@@ -256,7 +255,7 @@ bronte = 'Whatever our souls are made of, his and mine are the same.'
 bronte[2]
 bronte[3:20] 
 ```
-###Libraries
+###  Libraries
 What is more, we can search in strings using our good, old regular expressions. To do this we will import a **library** or **package** into python. Python has a lot of utility on its own-- however not everything is automatically available. Most of the coolest functionality are compartmentalized into packages. 
 
 The first one we will try out is called `re`. In a cell type: `import re`. You will now be able to use all the functionality within that function. You can call functions (tools) within this package using the dot. For example we can search for the regular expression `'\s[A-z]+a[rmd]e'` in `bronte`. 
@@ -340,7 +339,7 @@ Of course, you can also google the function and find out what it does.
 For example, 
 
 ```python
-colors = ['blue', 'blue', 'red', green']
+colors = ['blue', 'blue', 'red', 'green']
 uniquecolors = set(colors)
 ```
 
@@ -419,7 +418,7 @@ comp_dict[sequence]
 ```
 > **EXERCISE TOGETHER:** Instead, we can write a loop that loops over each element of the string and then queries that element in our dictionary. Let's write a for loop that will loop over a string and output the complement of that string. 
 
-### Looping over files
+### Looping over files in our directory 
 Often, something we want to do is loop over a list of files and do the same thing for each of the files. What if we wanted to loop over all the files that end in `.csv` like we did in bash. 
 
 In `bash` we could do:
@@ -452,7 +451,8 @@ What is the value of `array`? What is happening?
 
 ### Decisions with `if` and `else`
 Often times in programming you have the computer make decisions for you. You want to do one thing to one set of files and something different with the other set. The `if` statement is the most commonly used technique for such decision making. You can think of it is as a fork in the road: based on a binary `True`/`False` choice at this fork you will do one thing or another. If statements also often include the logi
-![Alt text](1568915009202.png)
+![Alt text](1568917174135.png)
+
 ** Figure 7.3 from Practical Computing for Biologists, Haddock and Dunn.**
 If statements can be very simple. They are encoded with the the keyword `if` and a `:` as with `for` loops. `else`, when added gives the option for what to do if the first statement is not true. For example, to test if a number is even you might use the following:
 ```python
@@ -472,14 +472,14 @@ for f in glob.glob('newdata/*csv'):
     f_array = np.loadtxt(f, delimiter=',')
 
 ```
-Let's say that we want to save all the arrays that have a mean greater than 0.5 to a dictionary called 'big' and those less to a dictionary called 'small'. How can we do that? 
+>Let's say that we want to save all the arrays that have a mean greater than 0.5 to a dictionary called 'big' and those less to a dictionary called 'small'. How can we do that? 
 
 ### A different type of loop: `while`
 Sometimes you enter a loop with an idea of all the things you want to do-- i.e. you have a list of things you want to analyze or change. 
 
 Sometimes, however, you don't have an exact list of things you want to accomplish but rather have an idea that you want to do something until a particular condition is met. This is often done with some sort of counter or monitor. A note: it is possible to end up in an endless while loop if you don't have a condition that can ever be met! 
 
-![Alt text](1568907998237.png)
+![Alt text](1568917241842.png)
 ** Figure 7.4 from Practical Computing for Biologists, Haddock and Dunn.**
 
 While loops are useful if you need to improve an approximation, or want to wait until some condition is reached, or if you are reading a file and want to read it while the file has lines. 
@@ -492,6 +492,80 @@ while i < 100:
 	print(i)
 	i+=12
 ```
+
+## Reading and writing files
+### Reading
+As with everything, there is more than one way to read in files to a readable format in python. Above, we used the package `numpy` to read in a `.csv` file into a numerical array that can be used in python. While built-in functions are convenient for reading in prescribed file types-- often you will encounter unique file types that don't have a standard parser in python. 
+
+Therefor, it i s useful to know how to manually read files in to a readible python format. Generally speaking, files are read into python by iterating over all the lines in the file. 
+
+To begin, you always need to open a text file:
+
+```python
+filename = 'data/fasta/unicorn.fa'
+
+with open(filename, 'r') as f:
+	for line in f:
+		print(line)
+f.close()
+```
+> What do you notice about how the line is printing out? 
+
+Here we are using the `open()` function to open a file as readable (`r`) for python. We are then using a for loop to loop through the file.  Each line is automatically provided to us as a `str` type. 
+
+> **Useful methods for strings:**
+> - `.strip()`: strips white space off the ends of a string
+ >-  `.split()`: splits a string based on a provided delimiter
+ >-  `.count()`:  counts the number of occurrences of a character within a string
+ >-  `.join()`: joins the elements of a list with a specified string
+ >- `.startswith()` and `.endswith()` returns a boolean testing if a string starts or ends with a specified character or set of characters
+ >- `.replace()` replaces a specified character or set of characters with another character
+
+#### Exercise break: fasta files to dictionaries
+Now, let's modify the above statement that will create a dictionary of dictionaries called `mysequences` that has a key for each new fasta entry in our fasta file (e.g. `Unicorn1`). Each of those name keys should then point to a sub dictionary that has the values:  		
+- `sequence`: the complete fasta sequence
+- `header`: the complete header filed
+- `name`: just the first element of the header without the ">"
+
+**Some things to consider:**
+- The sequences are broken up across multiple lines. How can you make sure that you are getting the full sequences and not just the first or last line? 
+- How do you make sure that you are associating the correct fasta sequence name with the correct fasta sequence? 
+
+**Bonus**:
+
+- Make each of the fields in the header (e.g. `location`) their own key in the sub dictionary. 
+- Add a field to the sub dictionary (`length`) that has the length of the sequence in it. 
+- Add a field to the sub dictionary (`gcfreq`) that has the GC frequency of the sequence. 
+- Add a field to the sub dictionary (`comp_seq`) that has the  complement of the original sequence. 
+
+### Writing
+So, now that we have *parsed* our fasta files-- let's write it out to a new format. Just as with reading, we can do this by looping through our information and writing our file line by line. Let's pretend we want to write these out to a new file format that is tab-delimited and takes the form:
+
+> `sequence_name` `<tab>` `header_info` `<tab>` `sequence_length` `<tab>`	`sequence`	
+
+First, we need to use the `open()` command as we did above to initiate the file object. Here, instead of using `'r'` for read we can choose to use either `'w'`, write, or `'a'`, append. These are roughly analogous to the `>` and `>>` in bash that we learned earlier. 
+
+```python
+outfilename = 'unicorn.newformat'
+with open(outfilename, 'w') as f:
+	f.write('hello')
+f.close()
+```	
+The above just wrote 'hello '. We can modify the above code block to loop through our dictionary adding each sequence entry in turn:
+
+```python
+outfilename = 'unicorn.newformat'
+with open(outfilename, 'w') as f:
+    for key in mysequences.keys():
+        sdict = mysequences[key]
+        outlist = [sdict['name'], sdict['header'], str(len(sdict['sequence'])), sdict['sequence']]
+        f.write('\t'.join(outlist))
+f.close()
+```	
+
+#### Exercise
+Write a set of commands that will write out the complement of each of the fasta sequences to a new file called `unicorns_complement.fa`. The header should contain all the information that the old header contained. Make sure that each header line starts with a `>`. 
+
 
 ## Useful customization for after class
 There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following function to your `.bash_profile` on the HPC. 
@@ -506,4 +580,29 @@ There is a lot of typing involved in getting jupyter running on the HPC. I recom
 As you can see the command `jpt` takes one user input $1 which specifies the port number that you want to open your `jupyter notebook` in.  So, to open a port you would type `jpt 8888'. 
 
 Now, on your *local* `.bash_profile`
+
+
+
+
+### Solutions: 
+
+```python
+filename = 'data/fasta/unicorn.fa'
+mysequences={}
+with open(filename, 'r') as f: 
+    for i, line in enumerate(f):
+        line = line.strip()
+        if line.startswith('>'):
+            seqdict = {}
+            name = line.split(' ')[0].replace('>','')
+            header = line.replace('>','')
+            sequence = ''
+            seqdict['name']=name 
+            seqdict['header']=header
+        else:
+            sequence+=line
+            seqdict['sequence']=sequence
+        mysequences[name]=seqdict
+f.close()
+```
 
