@@ -566,6 +566,138 @@ f.close()
 #### Exercise
 Write a set of commands that will write out the complement of each of the fasta sequences to a new file called `unicorns_complement.fa`. The header should contain all the information that the old header contained. Make sure that each header line starts with a `>`. 
 
+## Functions
+
+We have just written code to read in a file and parse it to retrieve the different elements of the fasta file. What if we wanted to do the same thing, but with a different file? Say we wanted to now run the same code on `griffin.fa`. Well, we could copy and paste the code and change the filename at the top. This is probably okay once but you can easily see how this might lead to massive amounts of code that is redundant and difficult to comprehend. 
+
+Functions allow you to get around this. We have already used functions (e.g. `np.sum(array)`) is a function that takes an array as an input and returns the value of the sum. We also saw how it can take parameters like `axis=0` to sum just the columns of the array. So, rather than manually copying and pasting the code that sums an array we can simply use a function. 
+
+Beyond the realm of libraries -- you can create custom functions within python. Custom functions allow you to write more complex and longer code blocks but in more human comprehensible ways. Functions can ultimately serve as shorthand for a larger and more complex process-- encapsulating complexity withing a single key word. Moreover, functions enable re-use so you only have to write a function once-- but can reuse it forever. 
+
+### Writing custom functions
+To do write functions in python we use the term `def` which is short for definition. `def` is followed by the name of the function that you are writing. As with `for` loops etc. above, whites pace is used define the code block that will be included in the function. 
+
+```python
+def sayHello():
+	print("Hello, there.")
+```
+> Simply *defining* a function does not run it. Note, if you paste this into a cell in Python nothing well be printed. Functions must be called to  To execute a function you must call it by typing `sayHello()` somewhere else. 
+
+### Parameters and returning output
+The real use in functions is the ability to apply the same set of commands to some new variable or value. For this, we can pass a parameter to the function. After the function you have a set of parenthesis after which you can list all the *parameters* that should be passed to the function. So for example, we can modify the above function so that it says hello to whoever we want:
+```python
+def sayHello(input):
+	print("Hello,", input, "!")
+```
+
+More than one parameter can be passed to a function-- multiple values can be passed to a function with commas. For example, we can make a simple function called `addx` that takes an input value and adds a number (x) to it and assigns the value of the two to a new variable `output`. 
+
+```python 
+def addx(input, x):
+	output = input + x
+	print(input, 'plus', x, 'equals' output)
+```
+
+> Try running this function with any two numbers. What is the value of `output`? 
+
+You shouldn't see any value automatically assigned to output? Why? Well, it has to do with the *scope* of a variable. Let's consider the following: 
+
+```python 
+bignumber = 10506010
+def addx(input, x):
+	output = input + x
+	print(input, 'plus', x, 'equals', output)
+```
+- The variable `bignumber` is a *global variable*. This means that it was defined outside of a function and can be viable (accessible) everywhere (globally). 
+- The variables `output`, `input`, and `x` are *local variables* within the function `addx`. These variables are only accessible within the function `addx` and do not get added to the global namespace. 
+
+Broadly, you can think of this as variables defined within a function have a scope only within that function. Variables defined outside of a function are accessible throughout. 
+
+So, what if you wanted to do something with the variable `output` from `addx`? Any variable that you want to access from a function has to be returned to the global name space. This can be done with `return`. 
+
+```python 
+def addx(input, x):
+	output = input + x
+	print(input, 'plus', x, 'equals', output)
+	return output	
+```
+Now, if we run:
+```python 
+addx(bignumber, 20)
+```
+We will see that in addition to printing what is being done the sum of `bignumber` and 20 has been printed to standard out. To assign that value we can use the `=`:
+```python 
+biggernumber = addx(bignumber, 20)
+```
+> **Exercise**: Write a function that will read any fasta file and parse it into a dictionary using the code that you we wrote at the beginning of class. Integrate this function into a for loop using `glob` that will read in all fasta files within a dictionary. 
+
+
+### Making functions flexible
+
+By default our function `addx` requires two inputs: `input` and `x`. What happens if you only pass one input (e.g. `addx(5)`)? 
+
+You can make functions more flexible by providing default values for parameters. This can be done by assigning a value to the parameter in the definition of the function: 
+
+```python 
+def addx(input, x=0):
+	output = input + x
+	print(input, 'plus', x, 'equals', output)
+	return output	
+```
+Here, we set the default value of x to be 0. 
+
+> Test this out. What happens if you try running `addx(5)` now? What about `addx(5, 6)`? 
+
+In addition to setting a default value for a variable you can also set the  default variable to be the built in value `None`. `None` in python signifies 'empty' or 'no value'. Often it is used in functions to indicate that a value is not required for the function. For example take a look at `help(np.sum())`.  `None` is used to indicate parameters that are optional (e.g. `sum(a, axis=None, dtype=None, out=None`). You can choose to pass a value or not and the function will still work. 
+
+
+
+## Defensive programming
+As a programmer it is important to assume that there will be errors. Human errors in input, errors in how a function is used, etc. One powerful thing you can do is attempt to guess how and where a function might be misused. One way you can do this within python is with `assertion` statements. Assertion statements will check to make sure some condition is true-- and will raise a warning and break the program if it is not. Assertion statements take the general form: 
+
+```python 
+assert <CONDITION>, <ERROR MESSAGE>
+```
+If the value of the condition is true, the program or function will continue without pausing -- if it isn't true an error message will be raised. Generally, this is  a nice way to highlight ways in which the function is not being used properly. 
+
+For example, let's say we were writing a function that did division and not addition. We would want to make sure that the user isn't trying to divide by 0. We can use an assertion statement for that. 
+
+```python
+def dividex(input, x):
+	assert x!=0, "You cannot divide by zero."
+	output = input / x
+	print(input, "divided by", x, "equals" output)
+	return output
+```
+
+> Test it out. What happens if you try to divide by zero? 
+
+Generally, it is useful to use assert statement to check that the input type is correct (e.g. `type(x) is int`) or that it fits your requirements. 
+
+> **Exercise** You have been provided with the standard codon look up table. Write a function that will read in the codon look up table to a dictionary. Then write a function that will translate any provided DNA sequence into an amino acid sequence. Use an assertion statement to make sure that only ACTG's are allowed as the sequence input. 
+
+## Writing command line applications in python
+
+ Jupyter Notebook and other interactive tools (e.g. working within the python interpreter) are great for testing and developing code and exploring data, but it is likely that sooner or later we will want to use our program in a pipeline or run it in a shell script to process thousands of data files. In order to do that, we can make our programs work like other command line tools. 
+
+The library `sys` can be used to take and parse input from the user. `sys.argv` stores a list of all command line input from a user. `sys.argv[0]` is always the name of the function and `sys.argv[1]` is the first user input. 
+
+So, for example let's look at the simple function `sayhello.py`. 
+
+Now let's take a look at the slightly more complex `factorial.py`. 
+
+Running a Python script in bash is very similar to importing that file in Python. The biggest difference is that we don’t expect anything to happen when we import a file, whereas when running a script, we expect to see some output printed to the console.
+
+In order for a Python script to work as expected when imported or when run as a script, it is considered good practice put the part of the script that produces output in the following if statement:
+
+```python
+if __name__ == "__main__":
+	function()
+```
+
+This allows python scripts to be both imported as libraries and to be executed on the command line seamlessly. 
+
+When you import a Python file, `__name__` is the name of that file. However, when running a script in bash,` __name__` is always set to `'__main__'` in that script so that you can determine if the file is being imported or run as a script. Thus, if you execute a script from the command line it will default to running what is below the if statement. 
 
 ## Useful customization for after class
 There is a lot of typing involved in getting jupyter running on the HPC. I recommend that you add the following function to your `.bash_profile` on the HPC. 
@@ -580,6 +712,9 @@ There is a lot of typing involved in getting jupyter running on the HPC. I recom
 As you can see the command `jpt` takes one user input $1 which specifies the port number that you want to open your `jupyter notebook` in.  So, to open a port you would type `jpt 8888'. 
 
 Now, on your *local* `.bash_profile`
+
+
+
 
 
 
