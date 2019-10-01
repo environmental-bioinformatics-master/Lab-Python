@@ -40,8 +40,27 @@ k-mers of various lengths are used across biology to facilitate the analysis of 
 5. Evidence of recombination
 6. Identifying contamination or misassembly
 
-And many more! We will talk about k-mers more in future but for today-- let's just think about how to count them. 
+And many more! We will talk about k-mers more in future but for today-- let's just think about how to find them and count them. 
 
+Often, sequences are broken down into their component k-mers. For example: 
+
+```
+AGATTATATAGATA
+```
+Is broken into the following 5-mers:
+```
+AGATT
+ GATTA
+  ATTAT
+   TTATA
+    TATAT
+     ATATA
+      TATAG
+       ATAGA
+        TAGAT
+         AGATA     
+```
+### Finding k-mers
 Let's write a function that for a given pattern counts the number of times that pattern occurs within a string. This type of thing already exists within the `re` package-- feel free to look that up later. But for now, let's try doing this our selves:
 
 First, let's write a function called `PatternCount` that counts the number of times a pattern occurs in a string. The idea being that you can start with some sequence and search for  a particular k-mer (pattern). 
@@ -68,6 +87,8 @@ PatternFinder(Text, k)
 ```
 
 > What kind of data type should we use to store our k-mers? 
+
+### Counting k-mers
 
 Now let's think about how we could combine these two functions to create a new function called `FrequentWords`. `FrequentWords` should take a Sequence and a word length (k) and calculate how many times each of the k-mers occurs in  sequence and then returns the most frequently occurring k-mer.
 
