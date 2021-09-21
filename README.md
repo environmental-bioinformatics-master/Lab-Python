@@ -212,7 +212,7 @@ You should now see a new Jupyter Notebook window.
 | `>`, `>=`      	| Greater than             	|
 | `<`, `<=`     	| Less than|
 | `and`, `&`    | And|
-| `or`, `|`	| Or|
+| `or`, <code>&#124;</code>	| Or|
 | `not`, `!` 	| Not|
 
 
@@ -282,7 +282,7 @@ Favorite=[42, 'Q', 'kumquats']
 So, if I wanted to return the 2nd element of `Favorites`:
 
 ```python
-Favorites[1] 
+Favorite[1] 
  >> 'Q'
 ```
 Some functions can directly modify lists for example:
@@ -290,13 +290,13 @@ Some functions can directly modify lists for example:
 ```python
 primes = [2,3,5]
 ```
-We can use `list_variable.append` to add items to the end of a list. `.append()` is a *method* of lists. Methods are liked functions but are tied to specific function types. For example, you cannot apply the method `.append()` to anything but a list will not work. 
+We can use `list_variable.append` to add items to the end of a list. `.append()` is a *method* of lists. Methods are liked functions but are tied to specific function types. For example, you cannot apply the method `.append()` to anything but a list - it will not work. 
 
 ```python
-prime.append(7)
+primes.append(7)
 ```
 
-> What happened? Did anything print? What happens if you try prime.append(11)? What if you try to append two numbers? 
+> What happened? Did anything print? What happens if you try primes.append(11)? What if you try to append two numbers? 
 
 > What happens if you try to append to our previous string `my_name`?
  
