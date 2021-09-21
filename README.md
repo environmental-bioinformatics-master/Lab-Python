@@ -26,9 +26,9 @@ Other programming languages do not need to be compiled but rather are processed 
 > Disadvantage: sometimes slower, less optimized
 
 ## Why Python?	
-![Alt text](./1568670330358.png)
-From https://hackernoon.com/top-3-most-popular-programming-languages-in-2018-and-their-annual-salaries-51b4a7354e06
-![Alt text](./1568670417673.png)
+![Alt text](img/stackoverflow2021.png)
+From: https://insights.stackoverflow.com/survey/2021#technology 
+
 
 We have selected to work with **Python** for this course.  Honestly, for science you can use whatever suits your work. Popular choices include: 
 - Python
@@ -94,6 +94,7 @@ First, let's open up a new `tmux` session. You can name `tmux` sessions with the
 tmux new -s lab 
 ```
 Recall that the magic key for `tmux` is `ctrl+B`. Here are some [useful tmux commands](https://gist.github.com/MohamedAlaa/2961058) .
+
 #### Anaconda 
 To run and manage `jupyter notebooks` we will be using `anaconda`.  Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing. Through the function `conda` Anaconda facilitates the installation of python and R programming languages as well as packages. It is a great tool for ensuring that computational environment is associated with code and really streamlines program installation and use. 
 
