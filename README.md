@@ -296,7 +296,7 @@ We can use `list_variable.append` to add items to the end of a list. `.append()`
 primes.append(7)
 ```
 
-> What happened? Did anything print? What happens if you try prime.append(11)? What if you try to append two numbers? 
+> What happened? Did anything print? What happens if you try primes.append(11)? What if you try to append two numbers? 
 
 > What happens if you try to append to our previous string `my_name`?
  
