@@ -282,7 +282,7 @@ Favorite=[42, 'Q', 'kumquats']
 So, if I wanted to return the 2nd element of `Favorites`:
 
 ```python
-Favorites[1] 
+Favorite[1] 
  >> 'Q'
 ```
 Some functions can directly modify lists for example:
