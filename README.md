@@ -212,7 +212,7 @@ You should now see a new Jupyter Notebook window.
 | `>`, `>=`      	| Greater than             	|
 | `<`, `<=`     	| Less than|
 | `and`, `&`    | And|
-| `or`, `|`	| Or|
+| `or`, <code>&#124;</code>	| Or|
 | `not`, `!` 	| Not|
 
 
