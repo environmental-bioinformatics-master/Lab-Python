@@ -246,7 +246,7 @@ favorite_number_squared = favorite_number ** 2
 You can also take information and pass it into another text string that is printed:
 
 ```python
-print("My favorite number is" , favorite number, " that number squred is: ", favorite_number_squared)
+print("My favorite number is" , favorite number, "that number squred is:", favorite_number_squared)
 ```
 Also, variables that contain strings can be indexed and sliced to grab particular parts. Let's make a long string:
 
@@ -312,7 +312,7 @@ Let's create a matrix!
 
 ```python
 x_lists = [[1,2],[3,4]]
-arr = np.array(x)
+arr = np.array(x_lists)
 ```
 I am not going to go into the matrix math application of python here-- but if you are interested I recommend checking out `numpy` and `xarray`. More [here](https://www.python-course.eu/matrix_arithmetic.php). 
 
@@ -353,7 +353,7 @@ set(sequence)
 > Sets have some really powerful `methods` associated with them. For example,  you can rapidly run math-like set comparison with `.union()`, `.intersection()`, `.difference()`.  Try running these commands with the sets defined below. 
 
 ```python
-	being_in_A = set(['apple', 'ashen', 'architecture'])
+	begin_in_A = set(['apple', 'ashen', 'architecture'])
 	end_in_E = set(['stare', 'bane', 'apple', 'frazzle'])
 ```
 
@@ -376,12 +376,12 @@ fact_dict["favorite_foods"] = ['avocado', 'sourdough', 'raspberries']
 You can then `print()` your dictionary: 
 
 ```python
-print(dictionary)
+print(fact_dict)
 ```
 And we can recall values from our dictionary:
 
 ```python
-print("My name is ", fact_dict["name"], "and I like", ', '.join(fact_dict["favorite_foods"]))
+print("My name is", fact_dict["name"], "and I like", ', '.join(fact_dict["favorite_foods"]))
 ```
 
 > **Exercise** : Write a dictionary that matches bases that typically pair in DNA: (i.e. A and T; C and G). This dictionary should allow us to query with one base and then get back its pair. Call this dictionary `comp_dict`.  
@@ -445,15 +445,16 @@ Now, let's pass this command to a for loop and see what we can do! Let's write a
 for f in glob.glob('newdata/*csv'):
     f_array = np.loadtxt(f, delimiter=',')
 ```
-What is the value of `array`? What is happening? 
+What is the value of `f_array`? What is happening? 
 
 > Add a command to this function that will calculate and print the mean of this array to the screen with a message. 
 
 ### Decisions with `if` and `else`
-Often times in programming you have the computer make decisions for you. You want to do one thing to one set of files and something different with the other set. The `if` statement is the most commonly used technique for such decision making. You can think of it is as a fork in the road: based on a binary `True`/`False` choice at this fork you will do one thing or another. If statements also often include the logi
+Often times in programming you have the computer make decisions for you. You want to do one thing to one set of files and something different with the other set. The `if` statement is the most commonly used technique for such decision making. You can think of it is as a fork in the road: based on a binary `True`/`False` choice at this fork you will do one thing or another.
 ![Alt text](1568917174135.png)
 
 ** Figure 7.3 from Practical Computing for Biologists, Haddock and Dunn.**
+
 If statements can be very simple. They are encoded with the the keyword `if` and a `:` as with `for` loops. `else`, when added gives the option for what to do if the first statement is not true. For example, to test if a number is even you might use the following:
 ```python
 A = 51
@@ -497,7 +498,7 @@ while i < 100:
 ### Reading
 As with everything, there is more than one way to read in files to a readable format in python. Above, we used the package `numpy` to read in a `.csv` file into a numerical array that can be used in python. While built-in functions are convenient for reading in prescribed file types-- often you will encounter unique file types that don't have a standard parser in python. 
 
-Therefor, it i s useful to know how to manually read files in to a readible python format. Generally speaking, files are read into python by iterating over all the lines in the file. 
+Therefor, it is useful to know how to manually read files in to a readible python format. Generally speaking, files are read into python by iterating over all the lines in the file. 
 
 To begin, you always need to open a text file:
 
@@ -575,16 +576,16 @@ Functions allow you to get around this. We have already used functions (e.g. `np
 Beyond the realm of libraries -- you can create custom functions within python. Custom functions allow you to write more complex and longer code blocks but in more human comprehensible ways. Functions can ultimately serve as shorthand for a larger and more complex process-- encapsulating complexity withing a single key word. Moreover, functions enable re-use so you only have to write a function once-- but can reuse it forever. 
 
 ### Writing custom functions
-To do write functions in python we use the term `def` which is short for definition. `def` is followed by the name of the function that you are writing. As with `for` loops etc. above, whites pace is used define the code block that will be included in the function. 
+To do write functions in python we use the term `def` which is short for definition. `def` is followed by the name of the function that you are writing. As with `for` loops etc. above, white space is used define the code block that will be included in the function. 
 
 ```python
 def sayHello():
 	print("Hello, there.")
 ```
-> Simply *defining* a function does not run it. Note, if you paste this into a cell in Python nothing well be printed. Functions must be called to  To execute a function you must call it by typing `sayHello()` somewhere else. 
+> Simply *defining* a function does not run it. Note, if you paste this into a cell in Python nothing will be printed. To execute a function you must call it by typing `sayHello()` somewhere else. 
 
 ### Parameters and returning output
-The real use in functions is the ability to apply the same set of commands to some new variable or value. For this, we can pass a parameter to the function. After the function you have a set of parenthesis after which you can list all the *parameters* that should be passed to the function. So for example, we can modify the above function so that it says hello to whoever we want:
+The real use in functions is the ability to apply the same set of commands to some new variable or value. For this, we can pass a parameter to the function. After the function you have a set of parentheses after which you can list all the *parameters* that should be passed to the function. So for example, we can modify the above function so that it says hello to whoever we want:
 ```python
 def sayHello(input):
 	print("Hello,", input, "!")
@@ -595,7 +596,7 @@ More than one parameter can be passed to a function-- multiple values can be pas
 ```python 
 def addx(input, x):
 	output = input + x
-	print(input, 'plus', x, 'equals' output)
+	print(input, 'plus', x, 'equals', output)
 ```
 
 > Try running this function with any two numbers. What is the value of `output`? 
@@ -666,7 +667,7 @@ For example, let's say we were writing a function that did division and not addi
 def dividex(input, x):
 	assert x!=0, "You cannot divide by zero."
 	output = input / x
-	print(input, "divided by", x, "equals" output)
+	print(input, "divided by", x, "equals", output)
 	return output
 ```
 
