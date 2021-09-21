@@ -1,9 +1,9 @@
-name: python_lab
+name: python_lab3
 dependencies:
-  - numpy=1.16.5 
-  - pandas=0.24
+  - numpy
+  - pandas
   - matplotlib
   - nb_conda
   - scipy
-  - seaborn
+
 
