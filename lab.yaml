@@ -1,4 +1,4 @@
-name: python_lab3
+name: python_lab
 dependencies:
   - numpy
   - pandas
