@@ -55,7 +55,7 @@ Each has its merits and draw backs, but the nice thing is that once you master o
 - Good scientific notebook style interactive interface (Jupyter)
 
 ## Running Python
-First things first, let's all *clone* a copy of the Repo we will be using for this part of the class. Go here: https://github.com/2019-MIT-Environmental-Bioinformatics/Lab-Python.
+First things first, let's all *clone* a copy of the Repo we will be using for this part of the class. Go here: https://github.com/2023-MIT-Environmental-Bioinformatics/Lab-Python.
 
 >
 ### Running the Python interpreter
