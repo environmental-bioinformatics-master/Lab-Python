@@ -64,8 +64,8 @@ Other programming languages do not need to be compiled but rather are processed 
 > Disadvantage: sometimes slower, less optimized
 
 ## Why Python?
-![Alt text](img/stackoverflow2021.png)
-From: https://insights.stackoverflow.com/survey/2021#technology
+![Alt text](img/stackoverflow2023.png)
+From: https://survey.stackoverflow.co/2023/#technology
 
 
 We have selected to work with **Python** for this course.  Honestly, for science you can use whatever suits your work. Popular choices include:
@@ -95,9 +95,8 @@ Each has its merits and draw backs, but the nice thing is that once you master o
 ## Running Python
 First things first, let's all *clone* a copy of the Repo we will be using for this part of the class. Go here: https://github.com/2023-MIT-Environmental-Bioinformatics/Lab-Python.
 
->
 ### Running the Python interpreter
-Python code can be run in many ways. You can run code directly within the python interpreter. To directly open the python interpreter you can type `python`.
+Python code can be run in many ways. You can run code directly within the python interpreter. To directly open the python interpreter you can type `python3`.
 
 > You should see that your `prompt` has changed. Try typing `ls`. What happens? Why?
 
@@ -122,7 +121,7 @@ python factorial.py
 ```
 Now, let's just take a quick look at the contents of this program. Note that the *shebang* at the top of this script is different from the one used by bash. Here we are specifying that this program should be run with python 3.
 
-> As an aside, python recently went through a major transition changing from `python 2.7` to `python 3`. While you may run into some program written in `2.7` you should try to do all of your analyses in `3`. To figure out which version you are running type `python --version` or `which python`.
+> As an aside, python recently (ish) went through a major transition changing from `python 2.7` to `python 3`. While you may run into some program written in `2.7` you should try to do all of your analyses in `3`. To figure out which version you are running type `python --version` or `which python`.
 
 ### Jupyter notebooks
 For the rest of this class we will be running all of our code in `jupyter notebooks`.  The main reason that I like working within in `jupyter notebooks` is that they are *interactive* and *easily readable*. Notably, code and output graphics or answers are tightly linked together rather like a laboratory notebook.
