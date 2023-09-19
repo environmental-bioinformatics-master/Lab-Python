@@ -184,18 +184,24 @@ To access the browser we are going to use `ssh`.  You will need to know the foll
 4. The name of the node that we are on (usually in the format of pn###)
 5. The `port` that we opened jupyter within
 
-Now, we will use the command. Type this into a new terminal window that is running on your local computer:
+Now, we will use this command: `ssh -t -t username@poseidon.whoi.edu -L 8888:localhost:8888 ssh node1 -L 8888:localhost:8888` to create a tunnel between our two computers. It is a long command that is easy to mistype-- so we have made a bash function that you can more easily use.
 
+Use `nano` to edit the file `jptnode` to have your username for poseidon. We are now going to scp this file to our local machine. To do this, open a new terminal window on your local machine and type: `scp username@poseidon.whoi.edu:/PATH/TO/jptnode` .`. What is this command doing? 
+
+Now we will source jptnode to make it so that that function is usable. You will need to either source this file everytime you want  to use it or you can add the function directly to your `.bash_profile`. 
+
+Now let's type-- but fill in the values for PORT and NODE:
 ```bash
-ssh -t -t username@poseidon.whoi.edu -L 8888:localhost:8888 ssh node1 -L 8888:localhost:8888
+jptnode PORT NODE
 ```
-This should prompt you for your password. You can enter it and then hit enter. Once you do that, you are ready to open your browser of choice and type `localhost:8888` into the prompt. Now, enter your jupter notebook password. Hit enter-- and you should be ready to go!
+
+This should prompt you for your poseidon password. You can enter it and then hit enter. Once you do that, you are ready to open your browser of choice and type `localhost:8888` into the prompt. Now, enter your jupter notebook password. Hit enter-- and you should be ready to go!
 
 Note: alternatively you can add this command to your .bash_profile on your local machine: 
 ```
 function jptnode(){
     # Forwards port $1 from node $2 into port $1 on the local machine and listens to it
-        ssh -t -t halexander@hpc.address.edu -L $1:localhost:$1 ssh $2 -L $1:localhost:$1
+        ssh -t -t username@poseidon.whoi.edu -L $1:localhost:$1 ssh $2 -L $1:localhost:$1
 }
 ```
 ## Let's take a quick tour of Jupyter!
