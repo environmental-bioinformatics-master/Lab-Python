@@ -96,7 +96,7 @@ Each has its merits and draw backs, but the nice thing is that once you master o
 First things first, let's all *clone* a copy of the Repo we will be using for this part of the class. Go here: https://github.com/2023-MIT-Environmental-Bioinformatics/Lab-Python.
 
 ### Running the Python interpreter
-Python code can be run in many ways. You can run code directly within the python interpreter. To directly open the python interpreter you can type `python3`.
+Python code can be run in many ways. You can run code directly within the python interpreter. To directly open the python interpreter you can type `python`.
 
 > You should see that your `prompt` has changed. Try typing `ls`. What happens? Why?
 
