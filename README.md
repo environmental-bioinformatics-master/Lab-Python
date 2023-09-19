@@ -93,7 +93,20 @@ First, let's open up a new `tmux` session. You can name `tmux` sessions with the
 ```bash
 tmux new -s lab
 ```
-Recall that the magic key for `tmux` is `ctrl+B`. Here are some [useful tmux commands](https://gist.github.com/MohamedAlaa/2961058) .
+The magic key for `tmux` is `ctrl+B`. Here are some [useful tmux commands](https://gist.github.com/MohamedAlaa/2961058) .
+#### Getting on a node
+We are running everything on the HPC-- but it is common curtosy to *not* run programs, scripts, or anything time/compute consuming on the login nodes. These nodes are there for everyone to be able to navigate the file structure and do their work... not their compute. 
+
+First, a quick reminder-- this is roughly what an HPC looks like. When you look at your prompt you should see which node you are on (`poseidon-l1` or `poseidon-l2`). You can also do `echo $HOSTNAME` to see which login node you are on. 
+
+![Alt text](https://hbctraining.github.io/Intro-to-shell-flipped/img/compute_cluster.png)
+
+###### Why HPC? 
+1. Software designed to work with the resources on an HPC environment and is unusable on a personal computer
+2. Data is big --> HPC allows you to avoid issues with memory and to get the analysis done faster with better processing capacity (100s of cores for processing! 100s of Terabytes or Petabytes of storage! 100s of Gigabytes of memory!)
+3. Parallelization is feasible! 
+
+Our HPC uses [slurm](https://slurm.schedmd.com/documentation.html) as it
 
 #### Anaconda
 To run and manage `jupyter notebooks` we will be using `anaconda`.  Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing. Through the function `conda` Anaconda facilitates the installation of python and R programming languages as well as packages. It is a great tool for ensuring that computational environment is associated with code and really streamlines program installation and use.
