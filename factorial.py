@@ -10,7 +10,9 @@ def factorial(num):
 	else:
 		for i in range(1, num + 1):
 			factorial_num = factorial_num * i
-		print("The factorial of", num, "is", factorial_num)
+
+        outstr = "The factorial of {} is {}."
+        print(outstr.format(num, factorial_num))
 
 if __name__ == "__main__": 
 
