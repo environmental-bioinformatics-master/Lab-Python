@@ -291,8 +291,17 @@ favorite_number_squared = favorite_number ** 2
 You can also take information and pass it into another text string that is printed:
 
 ```python
-print("My favorite number is" , favorite number, "that number squred is:", favorite_number_squared)
+print("My favorite number is" , favorite_number, "that number squred is:", favorite_number_squared)
 ```
+
+Or like this:
+
+```python
+print("My favorite number is {} that number squred is {}".format(favorite_number, favorite_number_squared))
+```
+
+Note: `.format()` is a method that is specific to strings. Methods are like functions but are tied to specific data types. For example, you cannot apply the method `.format()` to anything but a list - it will not work.
+
 Also, variables that contain strings can be indexed and sliced to grab particular parts. Let's make a long string:
 
 ```python
@@ -335,7 +344,7 @@ Some functions can directly modify lists for example:
 ```python
 primes = [2,3,5]
 ```
-We can use `list_variable.append` to add items to the end of a list. `.append()` is a *method* of lists. Methods are liked functions but are tied to specific function types. For example, you cannot apply the method `.append()` to anything but a list - it will not work.
+We can use `list_variable.append` to add items to the end of a list. `.append()` is a *method* of lists. 
 
 ```python
 primes.append(7)
