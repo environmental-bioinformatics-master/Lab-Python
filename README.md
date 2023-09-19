@@ -2,6 +2,7 @@
 @(Teaching)
 
 ## Goals:
+- Quick review of the HPC
 - Introduction to python and programming in general terms
 - Introduction to the python interpreter
 - Introduction to conda
@@ -11,6 +12,43 @@
 - Lists, dictionaries, sets
 - Libraries and modules
 - For loops!
+
+## Why HPC? 
+
+![Alt text](https://hbctraining.github.io/Intro-to-shell-flipped/img/compute_cluster.png)
+
+1. Software designed to work with the resources on an HPC environment and is unusable on a personal computer
+2. Data is big --> HPC allows you to avoid issues with memory and to get the analysis done faster with better processing capacity (100s of cores for processing! 100s of Terabytes or Petabytes of storage! 100s of Gigabytes of memory!)
+4. Frees up your local computer (less storage requirement, less effort, etc.)
+6. Easier to parallelize your workflows
+7. Others?
+
+### Our HPC: Poseidon 🧜🏿‍♂️
+Our HPC uses [slurm](https://slurm.schedmd.com/documentation.html) as it schedule manager-- this is basically the software that governs how the HPC resources are shared amongst all the users. It is also how we interact with the HPC (run jobs etc.). 
+
+First, a quick reminder-- above is roughly what an HPC looks like. When you look at your prompt you should see which node you are on (`poseidon-l1` or `poseidon-l2`). You can also do `echo $HOSTNAME` to see which node you are on. 
+
+Test out the command `sinfo`. This lists all the available types of queues we have on poseidon. 
+
+We are running everything on the HPC-- but it is common curtosy to *not* run programs, scripts, or anything time/compute consuming on the login nodes. These nodes are there for everyone to be able to navigate the file structure and do their work... not their compute. 
+
+#### Getting on a node
+
+First, let's open up a new `tmux` session. Tmux is basically a version of tabbed browsing but for your terminal. It allows you to open and run commands and then switch tabs but be able to come back to the command you were running. 
+
+You can name `tmux` sessions with the command:
+
+```bash
+tmux new -s lab
+```
+The magic key for `tmux` is `ctrl+B`. Here are some [useful tmux commands](https://gist.github.com/MohamedAlaa/2961058) .
+
+Now that we have a tmux session open, we are going to ask for a job on the `scavenger` queue of the cluster. 
+
+```bash
+srun -p scavenger -N 1 -n 1 --mem=5gb --time=02:00:00 --pty bash
+```
+Now look at your prompt. What do you see?
 
 ## What is programming?
 Programming is the processes of writing a set of instructions (**program**) to tell a computer to carry out a process. The writing of the program can occur in one of any number of different languages-- however many of the key concepts are consistent.
@@ -88,25 +126,6 @@ Now, let's just take a quick look at the contents of this program. Note that the
 
 ### Jupyter notebooks
 For the rest of this class we will be running all of our code in `jupyter notebooks`.  The main reason that I like working within in `jupyter notebooks` is that they are *interactive* and *easily readable*. Notably, code and output graphics or answers are tightly linked together rather like a laboratory notebook.
-
-First, let's open up a new `tmux` session. You can name `tmux` sessions with the command:
-```bash
-tmux new -s lab
-```
-The magic key for `tmux` is `ctrl+B`. Here are some [useful tmux commands](https://gist.github.com/MohamedAlaa/2961058) .
-#### Getting on a node
-We are running everything on the HPC-- but it is common curtosy to *not* run programs, scripts, or anything time/compute consuming on the login nodes. These nodes are there for everyone to be able to navigate the file structure and do their work... not their compute. 
-
-First, a quick reminder-- this is roughly what an HPC looks like. When you look at your prompt you should see which node you are on (`poseidon-l1` or `poseidon-l2`). You can also do `echo $HOSTNAME` to see which login node you are on. 
-
-![Alt text](https://hbctraining.github.io/Intro-to-shell-flipped/img/compute_cluster.png)
-
-###### Why HPC? 
-1. Software designed to work with the resources on an HPC environment and is unusable on a personal computer
-2. Data is big --> HPC allows you to avoid issues with memory and to get the analysis done faster with better processing capacity (100s of cores for processing! 100s of Terabytes or Petabytes of storage! 100s of Gigabytes of memory!)
-3. Parallelization is feasible! 
-
-Our HPC uses [slurm](https://slurm.schedmd.com/documentation.html) as it
 
 #### Anaconda
 To run and manage `jupyter notebooks` we will be using `anaconda`.  Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing. Through the function `conda` Anaconda facilitates the installation of python and R programming languages as well as packages. It is a great tool for ensuring that computational environment is associated with code and really streamlines program installation and use.
