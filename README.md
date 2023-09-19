@@ -181,16 +181,23 @@ To access the browser we are going to use `ssh`.  You will need to know the foll
 1. Your username
 2. Your password for the HPC
 3. Your password for jupyter notebooks (that we just set)
-4. The `port` that we opened jupyter within
-5. The name of the node you want to open the notebook on `poseidon-l1` or `poseidon-l2`.
+4. The name of the node that we are on (usually in the format of pn###)
+5. The `port` that we opened jupyter within
 
 Now, we will use the command. Type this into a new terminal window that is running on your local computer:
 
 ```bash
-ssh -N -f -L localhost:8888:localhost:8888 USERNAME@poseidon-[l1 or l2].whoi.edu
+ssh -t -t username@poseidon.whoi.edu -L 8888:localhost:8888 ssh node1 -L 8888:localhost:8888
 ```
 This should prompt you for your password. You can enter it and then hit enter. Once you do that, you are ready to open your browser of choice and type `localhost:8888` into the prompt. Now, enter your jupter notebook password. Hit enter-- and you should be ready to go!
 
+Note: alternatively you can add this command to your .bash_profile on your local machine: 
+```
+function jptnode(){
+    # Forwards port $1 from node $2 into port $1 on the local machine and listens to it
+        ssh -t -t halexander@hpc.address.edu -L $1:localhost:$1 ssh $2 -L $1:localhost:$1
+}
+```
 ## Let's take a quick tour of Jupyter!
 
 Jupyter is an interactive way to visualize code, the output of code (e.g. plots), and keep notes.  The first screen you see is the home screen or dash board. This should show you a navigable file structure much like what you might find on your computer.
