@@ -1,7 +1,6 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/2023-environmental-bioinformatics/Lab-Python/HEAD)
 
 # Introduction to Python
-@(Teaching)
 
 ## Goals:
 - Quick review of the HPC
