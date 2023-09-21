@@ -11,8 +11,8 @@ def factorial(num):
 		for i in range(1, num + 1):
 			factorial_num = factorial_num * i
 
-        outstr = "The factorial of {} is {}."
-        print(outstr.format(num, factorial_num))
+		outstr = "The factorial of {} is {}."
+		print(outstr.format(num, factorial_num))
 
 if __name__ == "__main__": 
 

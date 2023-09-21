@@ -1,5 +1,6 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/2023-environmental-bioinformatics/Lab-Python/HEAD)
+
 # Introduction to Python
-@(Teaching)
 
 ## Goals:
 - Quick review of the HPC
@@ -141,10 +142,10 @@ Now that we have loaded anaconda the first thing we are going to do is create a 
 
 You can read more about `conda` environments [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
 
-For now, let's make our first conda environment. I have provided a  yaml file that contains the packages we might available during our lab.  Let's take a quick look at it. `less lab.yaml`. Now type or copy:
+For now, let's make our first conda environment. I have provided a  yaml file that contains the packages we might available during our lab.  Let's take a quick look at it. `less environment.yaml`. Now type or copy:
 
 ```bash
-conda env create -f lab.yaml
+conda env create -f environment.yaml
 ```
 Note: If this is your first time using conda envrionments on the HPC you might need to run the following command. Note: you only need to run *once* and then it should be set.
 
